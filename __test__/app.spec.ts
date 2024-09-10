@@ -1,7 +1,7 @@
 import { describe, test, expect } from "@jest/globals";
 import app from "../src/server.js";
 import request from "supertest";
-import { configuration } from "../src/config.ts";
+import { configuration } from "../src/config.js";
 import { esPrimo } from "../src/numeros";
 
 describe("Test Suite App", () => {
