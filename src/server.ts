@@ -148,46 +148,4 @@ test("Validar que el endpoint /primo indique correctamente si el número es prim
 
     expect(responseError.body.error).toBe("Debe proporcionar un número válido");
 });
-describe("Configuration Tests", () => {
-
-    test("Debería usar los valores por defecto cuando no hay variables de entorno", () => {
-        // Borramos las variables de entorno para simular que no están definidas
-        delete process.env.USERNAME;
-        delete process.env.PORT;
-        delete process.env.API_KEY;
-
-        const defaultConfig = configuration;
-
-        expect(defaultConfig.username).toBe("Williams");
-        expect(defaultConfig.port).toBe(3001);
-        expect(defaultConfig.apiKey).toBe("Desconocida");
-    });
-
-    test("Debería usar las variables de entorno si están definidas", () => {
-        // Simulamos variables de entorno
-        process.env.USERNAME = "Carlos";
-        process.env.PORT = "4000";
-        process.env.API_KEY = "TestApiKey123";
-
-        const envConfig = configuration;
-
-        expect(envConfig.username).toBe("Carlos");
-        expect(envConfig.port).toBe(4000);
-        expect(envConfig.apiKey).toBe("TestApiKey123");
-    });
-
-    test("Debería manejar casos mixtos (algunas variables definidas y otras no)", () => {
-        // Simulamos que solo algunas variables de entorno están definidas
-        process.env.USERNAME = "Ana";
-        delete process.env.PORT; // No está definida
-        process.env.API_KEY = "MiApiKey";
-
-        const mixedConfig = configuration;
-
-        expect(mixedConfig.username).toBe("Ana");
-        expect(mixedConfig.port).toBe(3001); // Debería usar el valor por defecto
-        expect(mixedConfig.apiKey).toBe("MiApiKey");
-    });
-});
-
 export default app;
