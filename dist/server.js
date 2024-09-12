@@ -84,6 +84,14 @@ test("Validar que el endpoint /palindromo responda correctamente si la frase es 
         .expect(400);
     expect(responseError.body.error).toBe("Debe proporcionar un texto");
 });
+test("GET /palindromo con texto debe devolver si es palíndromo", async () => {
+    const response = await request(app).get("/palindromo").query({ texto: "oso" });
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({
+        texto: "oso",
+        esPalindromo: true,
+    });
+});
 test("Validar que el endpoint /primo indique correctamente si el número es primo", async () => {
     // Caso donde es un número primo
     const responsePrimo = await request(app)
